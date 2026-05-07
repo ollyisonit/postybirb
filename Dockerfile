@@ -9,9 +9,9 @@ WORKDIR /source
 COPY . .
 
 # Conditional build - only build if release/linux-unpacked doesn't exist
-RUN if [ -d "./release/linux-unpacked" ]; then \
+RUN if [ -d "./release/linux*unpacked" ]; then \
         echo "Found existing build, copying..."; \
-        cp -r ./release/linux-unpacked/ /app;\
+        cp -r ./release/linux*unpacked/ /app;\
     else \
         echo "Building from source..."; rm -rf .nx && \
         CYPRESS_INSTALL_BINARY=0 corepack yarn install --inline-builds && \
