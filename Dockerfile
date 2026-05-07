@@ -2,7 +2,7 @@
 FROM node:24-bookworm-slim AS builder
 
 # For ca-certificates
-RUN apt-get update && apt-get install -y curl 
+RUN apt-get update && apt-get install -y curl python[latest] build-essential
 
 WORKDIR /source
 
@@ -16,7 +16,7 @@ RUN if [ -d "./release/linux-unpacked" ]; then \
         echo "Building from source..."; rm -rf .nx && \
         CYPRESS_INSTALL_BINARY=0 corepack yarn install --inline-builds && \
         corepack yarn dist:linux --dir && \
-        cp -r ./release/linux-unpacked/ /app;\
+        cp -r ./release/linux*unpacked/ /app;\
     fi 
     
 FROM node:24-bookworm-slim
